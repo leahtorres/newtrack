@@ -1,0 +1,30 @@
+#new track Kiwi
+use_synth:saw
+use_bpm 148
+into = "C:/Users/leah_torres/Documents/Audacity/intoit.wav"
+yell = "C:/Users/leah_torres/Documents/Audacity/yell.wav"
+notes = [:d5, :e5, :d5, :e5, :e5, :d5, :e5]
+sleeps = [0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.5]
+index = 0
+
+7. times do
+  play notes[index]
+  print [index]
+  sleep sleeps[index]
+  index = index+1
+end
+define :drums_intro do
+  sample :drum_cymbal_open
+  sleep 1
+end
+4. times do
+  drums_intro
+end
+define :kiwi_melody do
+  notes = [:d5, :e5, :d5, :e5, :e5, :d5, :e5]
+  sleeps = [0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.5]
+end
+live_loop :kiwi do
+  kiwi_melody
+  sleep 1
+end
