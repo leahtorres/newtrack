@@ -1,30 +1,82 @@
-#new track Kiwi
-use_synth:saw
-use_bpm 148
+#Sound song#2 Kiwi
+use_synth:pulse
+use_bpm 147
+#sheet music: https://www.musicnotes.com/sheetmusic/mtd.asp?ppn=MN0174342
+#The lines 5-7 are samples that are later called by the sames into, druminto, and yell.
 into = "C:/Users/leah_torres/Documents/Audacity/intoit.wav"
+druminto = "C:/Users/leah_torres/Documents/Audacity/druminto.wav"
 yell = "C:/Users/leah_torres/Documents/Audacity/yell.wav"
-notes = [:d5, :e5, :d5, :e5, :e5, :d5, :e5]
-sleeps = [0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.5]
+aye = "C:/Users/leah_torres/Documents/Audacity/aye.wav"
+#On lines 9/10 these are arrays of my melody and my sleeps.
+notes = [:d5, :e5, :d5, :e5, :e5, :d5, :e5, :e5, :d5, :e5, :d5, :e5, :r, :e5, :e5, :d5, :e5]
+sleeps = [0.5, 0.5, 0.5, 1, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.5, 1, 1, 1, 0.5, 0.5, 1]
 index = 0
-
-7. times do
+#Lines 13-16 are my samples replaced with variables.
+n = :bass_trance_c
+m = :drum_splash_soft
+k = :drum_snare_hard
+l = :drum_cymbal_open
+#The loop below will play the 17 notes of the melody.
+17. times do
   play notes[index]
   print [index]
   sleep sleeps[index]
   index = index+1
 end
-define :drums_intro do
-  sample :drum_cymbal_open
-  sleep 1
+#The parameterized function is defined as kiwi melody and its parameters are n and m.
+define :kiwi_melody do |n, m|
+  play n
+  sleep m
 end
+#In this next section lines 31-47 the function is called by "kiwi_melody"
+live_loop :Kiwi do
+  kiwi_melody :d5, 0.5
+  kiwi_melody :e5, 0.5
+  kiwi_melody :d5, 0.5
+  kiwi_melody :e5, 1
+  kiwi_melody :e5, 0.5
+  kiwi_melody :d5, 0.5
+  kiwi_melody :e5, 1
+  kiwi_melody :e5, 0.5
+  kiwi_melody :d5, 0.5
+  kiwi_melody :e5, 0.5
+  kiwi_melody :d5, 0.5
+  kiwi_melody :e5, 1
+  kiwi_melody :r, 1
+  kiwi_melody :e5, 1
+  kiwi_melody :e5, 0.5
+  kiwi_melody :d5, 0.5
+  kiwi_melody :e5, 1
+end
+#lines 50-53 the live_loop will play the bass sample with the function Kiwi.
+live_loop :bass do
+  sample n, amp: 1
+  sleep 1
+  x = x+1
+end
+#The 4. times do will have amp randomness.
 4. times do
-  drums_intro
-end
-define :kiwi_melody do
-  notes = [:d5, :e5, :d5, :e5, :e5, :d5, :e5]
-  sleeps = [0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.5]
-end
-live_loop :kiwi do
-  kiwi_melody
+  r = rrand_i(2.75,0.25)
+  sample m, amp: r
+  sleep 2
+  sample k, amp: r
   sleep 1
+  sample l, amp: r
+  sleep 1
+end
+#When the last loops finishes the samples will be called.
+1. times do
+  sample into, amp: 2
+  sleep 10
+  sample aye
+  sleep 15
+  sample druminto
+  sleep 15
+end
+
+live_loop :Kiwi do
+  stop
+end
+live_loop :bass do
+  stop
 end
