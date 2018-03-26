@@ -5,7 +5,7 @@ use_bpm 147
 #The lines 5-7 are samples that are later called by the sames into, druminto, and yell.
 into = "C:/Users/leah_torres/Documents/Audacity/intoit.wav"
 druminto = "C:/Users/leah_torres/Documents/Audacity/druminto.wav"
-yell = "C:/Users/leah_torres/Documents/Audacity/yell.wav"
+backup = "C:/Users/leah_torres/Documents/Audacity/backup.wav"
 aye = "C:/Users/leah_torres/Documents/Audacity/aye.wav"
 #On lines 9/10 these are arrays of my melody and my sleeps.
 notes = [:d5, :e5, :d5, :e5, :e5, :d5, :e5, :e5, :d5, :e5, :d5, :e5, :r, :e5, :e5, :d5, :e5]
@@ -66,14 +66,22 @@ end
 end
 #When the last loops finishes the samples will be called.
 1. times do
-  sample into, amp: 2
-  sleep 10
-  sample aye
-  sleep 15
-  sample druminto
-  sleep 15
+  sample druminto, amp: 4
+  sleep 14
 end
 
+sample backup, rate: 4
+sleep 10
+
+1. times do
+  sample backup, amp: 4
+  sleep 15
+end
+2. times do
+  sample :ambi_dark_woosh
+  sleep 11
+end
+#These last live loops will stop the loops with the name it had from the ones above.
 live_loop :Kiwi do
   stop
 end
